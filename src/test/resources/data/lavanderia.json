@@ -1,0 +1,18 @@
+{
+  "maquina": "lavanderia",
+  "estados": {
+    "S1": "S1 (Tapa Abierta)",
+    "S2": "S2 (Llenando Agua)",
+    "S3": "S3 (Lavando)",
+    "S4": "S4 (Centrifugando)",
+    "S5": "S5 (Parada de Emergencia)"
+  },
+  "eventos": ["Cerrar Tapa", "Nivel OK", "Fin Lavado", "Apertura Forzosa", "Reset Operador"],
+  "rutas": {
+    "S1 (Tapa Abierta)": [],
+    "S2 (Llenando Agua)": ["Cerrar Tapa"],
+    "S3 (Lavando)": ["Cerrar Tapa", "Nivel OK"],
+    "S4 (Centrifugando)": ["Cerrar Tapa", "Nivel OK", "Fin Lavado"],
+    "S5 (Parada de Emergencia)": ["Cerrar Tapa", "Apertura Forzosa"]
+  }
+}

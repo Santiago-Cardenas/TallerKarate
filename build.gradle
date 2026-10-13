@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.cajanegra2'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    karateVersion = '1.4.1'
+}
+
+dependencies {
+    testImplementation "com.intuit.karate:karate-junit5:${karateVersion}"
+    testImplementation "ch.qos.logback:logback-classic:1.5.6"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+
+    // Las pruebas consumen una API externa: siempre se vuelven a ejecutar
+    outputs.upToDateWhen { false }
+
+    // Evita que un fallo puntual de DNS quede en caché y tumbe el resto de la suite
+    jvmArgs '-Dsun.net.inetaddr.negative.ttl=0'
+
+    // Propaga desde la línea de comandos: -Dkarate.options="--tags @Issue-3", -Dkarate.env=dev, -DbaseUrl=...
+    ['karate.options', 'karate.env', 'baseUrl'].each { key ->
+        if (System.getProperty(key) != null) {
+            systemProperty key, System.getProperty(key)
+        }
+    }
+
+    testLogging {
+        events 'passed', 'failed', 'skipped'
+        exceptionFormat 'full'
+    }
+}
+
+clean {
+    delete 'target'
+}

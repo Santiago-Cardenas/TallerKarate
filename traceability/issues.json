@@ -1,0 +1,36 @@
+{
+  "requisitos": {
+    "REQ-LAV-01": "Lavandería - Estado inicial y reinicio de la máquina",
+    "REQ-LAV-02": "Lavandería - Ciclo normal de lavado (S1 -> S2 -> S3 -> S4 -> S1)",
+    "REQ-LAV-03": "Lavandería - Parada de emergencia (Apertura Forzosa) y Reset Operador",
+    "REQ-LAV-04": "Lavandería - Las transiciones no definidas no cambian el estado",
+    "REQ-LAV-05": "Lavandería - Los eventos desconocidos se rechazan (HTTP 400)",
+    "REQ-MOD-01": "Moderación - Definición de la tabla de decisión (3 condiciones, 4 reglas)",
+    "REQ-MOD-02": "Moderación - Publicar mensaje limpio (R1)",
+    "REQ-MOD-03": "Moderación - Ocultar mensaje con enlaces sospechosos (R2)",
+    "REQ-MOD-04": "Moderación - Baneo permanente por reincidencia (R3, R4, R7, R8)",
+    "REQ-MOD-05": "Moderación - Eliminar mensaje y suspender 24 h (R5, R6)",
+    "REQ-MOD-06": "Moderación - Validación de la entrada de la evaluación",
+    "REQ-MOD-07": "Moderación - Historial de evaluaciones"
+  },
+  "issues": [
+    { "numero": 1,  "requisito": "REQ-LAV-01", "tipo": "smoke",      "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] Reiniciar la lavadora la deja en S1 (Tapa Abierta)" },
+    { "numero": 2,  "requisito": "REQ-LAV-02", "tipo": "positivo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] S1 + Cerrar Tapa -> S2 (Llenando Agua) / Bloquear pestillo" },
+    { "numero": 3,  "requisito": "REQ-LAV-02", "tipo": "positivo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] S2 + Nivel OK -> S3 (Lavando) / Activar motor" },
+    { "numero": 4,  "requisito": "REQ-LAV-02", "tipo": "positivo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] S3 + Fin Lavado -> S4 (Centrifugando)" },
+    { "numero": 5,  "requisito": "REQ-LAV-02", "tipo": "positivo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] S4 + Fin Lavado -> S1 (Tapa Abierta)" },
+    { "numero": 6,  "requisito": "REQ-LAV-03", "tipo": "positivo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] S2/S3/S4 + Apertura Forzosa -> S5 (Parada de Emergencia)" },
+    { "numero": 7,  "requisito": "REQ-LAV-03", "tipo": "positivo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] S5 + Reset Operador -> S1 (Tapa Abierta)" },
+    { "numero": 8,  "requisito": "REQ-LAV-04", "tipo": "negativo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] Bloquear las 17 transiciones no definidas" },
+    { "numero": 9,  "requisito": "REQ-LAV-05", "tipo": "negativo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] Rechazar eventos desconocidos sin alterar el estado" },
+    { "numero": 10, "requisito": "REQ-LAV-02", "tipo": "positivo",   "feature": "src/test/resources/features/lavanderia.feature",     "titulo": "[API][Lavandería] Ciclo completo de lavado registrado en el historial" },
+    { "numero": 11, "requisito": "REQ-MOD-01", "tipo": "smoke",      "feature": "src/test/resources/features/moderacionForo.feature", "titulo": "[API][Moderación] Consultar la definición de la tabla de decisión" },
+    { "numero": 12, "requisito": "REQ-MOD-02", "tipo": "positivo",   "feature": "src/test/resources/features/moderacionForo.feature", "titulo": "[API][Moderación] R1: publicar con normalidad un mensaje limpio" },
+    { "numero": 13, "requisito": "REQ-MOD-03", "tipo": "positivo",   "feature": "src/test/resources/features/moderacionForo.feature", "titulo": "[API][Moderación] R2: ocultar mensaje con enlaces sospechosos" },
+    { "numero": 14, "requisito": "REQ-MOD-04", "tipo": "positivo",   "feature": "src/test/resources/features/moderacionForo.feature", "titulo": "[API][Moderación] R3/R4/R7/R8: baneo permanente por reincidencia" },
+    { "numero": 15, "requisito": "REQ-MOD-05", "tipo": "positivo",   "feature": "src/test/resources/features/moderacionForo.feature", "titulo": "[API][Moderación] R5/R6: eliminar mensaje y suspender 24 horas" },
+    { "numero": 16, "requisito": "REQ-MOD-06", "tipo": "negativo",   "feature": "src/test/resources/features/moderacionForo.feature", "titulo": "[API][Moderación] Rechazar evaluaciones con estructura inválida (HTTP 400)" },
+    { "numero": 17, "requisito": "REQ-MOD-06", "tipo": "negativo",   "feature": "src/test/resources/features/moderacionForo.feature", "titulo": "[API][Moderación] No sancionar cuando las condiciones no son booleanas" },
+    { "numero": 18, "requisito": "REQ-MOD-07", "tipo": "positivo",   "feature": "src/test/resources/features/moderacionForo.feature", "titulo": "[API][Moderación] Registrar evaluaciones en el historial y limpiarlo al reiniciar" }
+  ]
+}

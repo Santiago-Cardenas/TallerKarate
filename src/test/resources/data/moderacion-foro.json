@@ -1,0 +1,15 @@
+{
+  "tabla": "moderacion-foro",
+  "nombre": "Sistema de Moderación Automática en Foro de E-Sports",
+  "condiciones": [
+    "Mensaje contiene insultos graves (lista negra)",
+    "Usuario acumula 3+ advertencias previas por toxicidad en 24h",
+    "Mensaje incluye enlaces sospechosos o acortadores no verificados"
+  ],
+  "acciones": {
+    "baneo": "Escalar a baneo permanente de la cuenta de usuario",
+    "suspension": "Eliminar el mensaje instantáneamente y aplicar suspensión temporal de chat por 24 horas",
+    "ocultar": "Ocultar mensaje automáticamente y mostrar advertencia de seguridad al chat",
+    "publicar": "Publicar mensaje con normalidad en el flujo de la conversación"
+  }
+}
